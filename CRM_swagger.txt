@@ -1,0 +1,2203 @@
+openapi: 3.0.1
+info:
+  title: CRM Service
+  version: v0
+servers:
+  - url: http://crmservice.dev.skaleup.tech
+    description: Generated server url
+paths:
+  /v1/crm/rolesconfiguration:
+    put:
+      tags:
+        - role-management-controller
+      summary: Save All Configuration for edit
+      description: Save All Configguration for edit
+      operationId: saveAllConfigurationsForEdit
+      parameters:
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: roleCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleAccessConfigDetails'
+        required: true
+      responses:
+        '201':
+          description: Saved all configuration for edit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusDetails'
+        '400':
+          description: Bad request mandatory feilds can not be null
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      tags:
+        - role-management-controller
+      summary: Creating Role Access configuration
+      description: Creation of Role Access configuration for the given rolecode and L2
+      operationId: save
+      parameters:
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleAccessConfigDetails'
+        required: true
+      responses:
+        '200':
+          description: Created Role Access configuration for the given role and l2
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusDetails'
+        '400':
+          description: Bad request mandatory fields can not be null
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/tabs/links:
+    get:
+      tags:
+        - crm-controller
+      summary: Fetches all active links based on List of Tabs
+      description: Fetch all Links based on Tabs
+      operationId: getLinksBasedOnListOfTabs
+      parameters:
+        - name: tabCode
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all links
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinksDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      tags:
+        - crm-controller
+      summary: Get all Links based on tabcode
+      description: Get all tabs based on prodcatcode from crm schema
+      operationId: getAllLinksDetailsBasedOnTabs
+      parameters:
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '201':
+          description: Fetched all groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TabsDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/rolesconfiguration/clone:
+    post:
+      tags:
+        - role-management-controller
+      summary: clone role
+      description: Clones one role to another
+      operationId: cloneAccessConfigDetails
+      parameters:
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloneAccessConfigBean'
+        required: true
+      responses:
+        '201':
+          description: Cloned from one role to another successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusDetails'
+        '400':
+          description: Bad request as roleCodeFrom, roleCodeTo, prodCatCode can not be null
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/roles/ctas:
+    post:
+      tags:
+        - crm-controller
+      summary: Fetches all CTAs based on CTA Role Product Category
+      description: Fetch all CTAs based on l2 and sections and Selected
+      operationId: getAllCtasSelected
+      parameters:
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: Received all CTAs
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request sectionsCodes can not be null
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/roles/attributes:
+    post:
+      tags:
+        - crm-controller
+      summary: Fetches all attributes
+      description: Fetches all attributes based on l2
+      operationId: getAllAttributes
+      parameters:
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: Fetached all attributes
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request sectionCodes can not be null
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/ctas:
+    post:
+      tags:
+        - crm-controller
+      summary: Fetches all CTAs
+      description: Fetch all CTAs based on l2 and sections
+      operationId: getAllCta
+      parameters:
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: Received all CTAs
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/tabs:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all Tabs
+      description: Fetches all active Tabs
+      operationId: getAllTabs
+      parameters:
+        - name: roleAccessCriteria
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: roleCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all tabs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TabsDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/tabs/{tabCode}/links:
+    get:
+      tags:
+        - crm-controller
+      summary: Fetches all active links based on Tabs
+      description: Fetch all Links based on Tabs
+      operationId: getLinksBasedOnTabs
+      parameters:
+        - name: tabCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all tab links
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinksDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/subsections:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all SubSections based on prodCatCode and sectionCode
+      description: Fetches all active SubSections based on sections
+      operationId: getAllSubSections
+      parameters:
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: sectionCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all subsections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubSectionsDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/subsections/attributes:
+    get:
+      tags:
+        - crm-controller
+      summary: Fetches all active Attributes based on List of Subsection
+      description: Fetch all Attributes based on Subsection
+      operationId: getAttributesBasedOnListOfSubsections
+      parameters:
+        - name: subSectionCode
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all attributes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinksDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/sections:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all Sections
+      description: Fetches all active Sections based on groups
+      operationId: getAllSections
+      parameters:
+        - name: groupCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: productCatCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all sections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SectionsDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/roles:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all Roles based on functionCode
+      description: Fetches all active roles based on functionCode
+      operationId: getRolesForRoleConfiguration
+      parameters:
+        - name: productCatCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: functionCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: roleAccessCriteria
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/roles/{roleCode}/tabs:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all Tabs based on roleCode
+      description: Fetches all active tabs based on role
+      operationId: getTabsBasedOnRoles
+      parameters:
+        - name: roleCode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all tab roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TabsDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/groups:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all Groups
+      description: Fetches all active Groups based on tab
+      operationId: getAllGroups
+      parameters:
+        - name: productCatCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tabCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupsDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/groups/sections/subsections:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all group details based on prodcatcode
+      description: Get all group based on prodcatcode from crm schema
+      operationId: getAllGroupsWithSectionDetails
+      parameters:
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tabcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Fetched all groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupsDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/summary/{criteria}/search/{searchcode}:
+    get:
+      tags:
+        - summary-controller
+      summary: Get all Top Level info
+      description: Get all Top Level info
+      operationId: getApplicationSummary
+      parameters:
+        - in: path
+          name: criteria
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: searchcode
+          required: true
+          schema:
+            type: string
+        - name: authtoken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Fetched all top level info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  # /v1/crm/applications/{applicationid}/assignment:
+  #   post:
+  #     tags:
+  #       - application-controller
+  #     summary: Assignment of application
+  #     description: Assignment of application
+  #     operationId: applicationAssignment
+  #     parameters:
+  #       - in: path
+  #         name: applicationid
+  #         required: true
+  #         schema:
+  #           type: string
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/AllocationDetails'
+  #       required: true
+  #     responses:
+  #       '200':
+  #         description: Assignment of application
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Status'
+  #       '400':
+  #         description: Bad request
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: string
+  #       '401':
+  #         description: Unauthorized
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: string
+  #       '403':
+  #         description: Forbidden
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: string
+  #       '500':
+  #         description: Internal Server Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: string
+  /v1/crm/search:
+    get:
+      tags:
+        - Global-Search-Controller
+      summary: Fetches all active searchfor tabs
+      description: Fetches all active searchfor tabs
+      operationId: fetchAllSearchFor
+      parameters:
+        - name: authtoken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Fetched all top level info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchForDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/search/{searchforcode}:
+    get:
+      tags:
+        - Global-Search-Controller
+      summary: Fetches all active searchBy tabs
+      description: Fetches all active searchBy tabs
+      operationId: fetchAllSearchBy
+      parameters:
+        - name: authtoken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+        - name: searchforcode
+          in: path
+          description: searchforcode
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Fetched all top level info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchByDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/search/{categorycode}/details:
+    get:
+      tags:
+        - Global-Search-Controller
+      summary: Fetches all active data based on category code
+      description: Fetches all active data based on category code
+      operationId: fetchAllData
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: categorycode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: searchbycode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: searchbyvalue
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDetails'
+        '400':
+          description: Not Found
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+  /v1/crm/applications/{applicationid}/sections/{sectioncd}/subsections/{subsectioncd}:
+    get:
+      tags:
+        - subsection-attributes-Controller
+      summary: Get Applications Subsections fields details
+      description: >-
+        Fetches subsections fields details from applicationId, sectionCd,
+        subsectionCd
+      operationId: getApplicationsSubsectionsFieldsDetails
+      parameters:
+        - name: applicationid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: int64
+        - name: sectioncd
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: subsectioncd
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: authtoken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Application Field details fetched successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubSectionsDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/views:
+    get:
+      tags:
+        - view-controller
+      summary: Get all existing views
+      description: Get all existing views
+      operationId: existingViews
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Views received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+    put:
+      tags:
+        - view-controller
+      summary: Update view
+      description: Update view
+      operationId: editView
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewDefinitionDetails'
+        required: true
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: viewcode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Views received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      tags:
+        - view-controller
+      summary: Create view
+      description: Create view
+      operationId: createView
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewDefinitionDetails'
+        required: true
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Views received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+    delete:
+      tags:
+        - view-controller
+      summary: Marks the view inactive in DB
+      description: Marks the view inactive
+      operationId: deleteView
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: viewcode
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: View deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/views/{viewcode}/details:
+    get:
+      tags:
+        - view-controller
+      summary: Fetch View details based on viewCode for Edit View
+      description: Fetch View details based on viewCode for Edit View
+      operationId: fetchViewBasedOnViewCode
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: viewcode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: View name is unique
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewDefinitionDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/views/{viewname}:
+    get:
+      tags:
+        - view-controller
+      summary: Check in DB if entered view name exists
+      description: Check in DB if entered view name exists
+      operationId: validateViewName
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: viewname
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: View name is unique
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/views/attributes:
+    get:
+      tags:
+        - view-controller
+      summary: Get display fields / filter fields
+      description: Get display fields / filter fields
+      operationId: getParameters
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: prodcatcode
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: View Attributes received
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViewAttributeDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/views/attributes/{attributecode}:
+    get:
+      tags:
+        - view-controller
+      summary: Get Operators and Values for selected filter
+      description: Get Operators and Values for selected filter
+      operationId: getOperatorsAndFields
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: attributecode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Views Attributes Value received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewAttributeValues'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/views/{viewcode}/applications:
+    get:
+      tags:
+        - view-controller
+      summary: Get summary of view for applications, leads
+      description: Get summary of view for applications, leads
+      operationId: getSummaryOfView
+      parameters:
+        - name: authtoken
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: viewcode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pagenumber
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: recordsize
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Views Attributes Value received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcedureViewDefinitionDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/crm/productcategories:
+    get:
+      tags:
+        - crm-controller
+      summary: Get all Products Categories
+      description: Fetches all active Products Categories
+      operationId: getAllProductCategories
+      parameters:
+        - name: rolecode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: authToken
+          in: header
+          description: authtoken
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received all Product Categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCategoryDetails'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    StatusDetails:
+      type: object
+      properties:
+        status:
+          type: string
+    AttributeDetails:
+      required:
+        - attributeCode
+        - attributeName
+      type: object
+      properties:
+        attributeCode:
+          type: integer
+          format: int32
+        attributeName:
+          type: string
+        viewOrder:
+          type: integer
+          format: int64
+        isEditable:
+          type: boolean
+        isSelected:
+          type: boolean
+        attributeValues:
+          type: array
+          items:
+            $ref: String
+    CTADetails:
+      type: object
+      properties:
+        ctaCode:
+          type: string
+        ctaName:
+          type: string
+        viewOrder:
+          type: integer
+          format: int32
+        selected:
+          type: boolean
+    GroupsDetails:
+      required:
+        - groupCode
+        - groupName
+      type: object
+      properties:
+        groupCode:
+          type: string
+        groupName:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectionsDetails'
+        viewOrder:
+          type: integer
+          format: int32
+    LinksDetails:
+      type: object
+      properties:
+        linkCode:
+          type: string
+        linkName:
+          type: string
+        selected:
+          type: boolean
+    RoleAccessConfigDetails:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDetails'
+        prodCatCode:
+          type: string
+        tabs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TabsDetails'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupsDetails'
+        ctas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CTADetails'
+    RoleDetails:
+      type: object
+      properties:
+        roleName:
+          type: string
+        roleCode:
+          type: string
+    SectionsDetails:
+      required:
+        - sectionCode
+        - sectionName
+      type: object
+      properties:
+        sectionCode:
+          type: string
+        sectionName:
+          type: string
+        subSections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubSectionsDetails'
+        ctas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CTADetails'
+        viewOrder:
+          type: integer
+          format: int32
+    SubSectionsDetails:
+      required:
+        - subSectionCode
+        - subSectionName
+      type: object
+      properties:
+        subSectionCode:
+          type: string
+        subSectionName:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeDetails'
+        viewOrder:
+          type: integer
+          format: int32
+    TabsDetails:
+      required:
+        - tabCode
+        - tabName
+      type: object
+      properties:
+        tabCode:
+          type: string
+        tabName:
+          type: string
+        viewOrder:
+          type: integer
+          format: int32
+        selected:
+          type: boolean
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinksDetails'
+    CloneAccessConfigBean:
+      required:
+        - prodCatCode
+        - roleCodeFrom
+        - roleCodeTo
+      type: object
+      properties:
+        roleCodeFrom:
+          type: string
+        roleCodeTo:
+          type: string
+        prodCatCode:
+          type: string
+    SummaryDetails:
+      type: object
+      properties:
+        summaryType:
+          type: string
+        payload:
+          type: object
+    SearchForDetails:
+      type: object
+      properties:
+        searchForCode:
+          type: string
+        searchForName:
+          type: string
+        viewOrder:
+          type: string
+    SearchByDetails:
+      type: object
+      properties:
+        searchByCode:
+          type: string
+        searchByName:
+          type: string
+        viewOrder:
+          type: string
+    CustomerDetails:
+      type: object
+      properties:
+        customerName:
+          type: string
+        dob:
+          type: string
+        pan:
+          type: string
+        mobileNo:
+          type: string
+        personalEmail:
+          type: string
+        officeEmail:
+          type: string
+        ugroId:
+          type: string
+        applicantId:
+          type: string
+    Status:
+      type: object
+      properties:
+        statusMessage:
+          type: string
+    ViewDetails:
+      type: object
+      properties:
+        viewCode:
+          type: string
+        viewName:
+          type: string
+        defaultViewFlag:
+          type: boolean
+    ViewAttributeValues:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ViewAttributeDetails'
+        logicalOperators:
+          type: array
+          items:
+            $ref: string
+        attributeValues:
+          type: array
+          items:
+            $ref: string
+    ViewDefinitionDetails:
+      type: object
+      properties:
+        viewName:
+          type: string
+        filterAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeViewDefinitionDetails'
+        logicalCondition:
+          type: string
+        summaryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewAttributeDetails'
+        viewVisibility:
+          $ref: '#/components/schemas/ViewVisiblityDetails'
+    ViewVisiblityDetails:
+      type: object
+      properties:
+        viewVisibilityCode:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RolesViewDefinitionDetails'
+        userLoginIds:
+          type: array
+          items:
+            $ref: string
+    RolesViewDefinitionDetails:
+      type: object
+      properties:
+        functionName:
+          type: string
+        functionCode:
+          type: string
+        roleCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDetails'
+    ViewAttributeDetails:
+      type: object
+      properties:
+        attributeName:
+          type: string
+        attributeCode:
+          type: string
+        isdisplayflag:
+          type: boolean
+        isfilterflag:
+          type: boolean
+        isviewflag:
+          type: boolean
+    ProductCategoryDetails:
+      type: object
+      properties:
+        prodCatName:
+          type: string
+        prodCatCode:
+          type: string
+    AttributeViewDefinitionDetails:
+      type: object
+      properties:
+        attributeCode:
+          type: string
+        attributeName:
+          type: string
+        operator:
+          type: string
+        attributeValues:
+          type: array
+          items:
+            $ref: string
+    ViewSummaryDefinitionDetails:
+      type: object
+      properties:
+        summaryData:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+    ProcedureViewDefinitionDetails:
+      type: object
+      properties:
+        summaryFieldDataType:
+          type: array
+          items:
+            $ref: string
+        summaryFieldNames:
+          type: array
+          items:
+            $ref: string
+        summaryFieldData:
+            $ref: '#/components/schemas/ViewSummaryDefinitionDetails'
+        summaryColumnCount:
+          type: integer
+        summaryDataCount:
+          type: integer
+        totalResultCount:
+          type: integer
+        
